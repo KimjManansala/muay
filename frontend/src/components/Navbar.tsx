@@ -5,7 +5,6 @@ import {
   Flex,
   Avatar,
   HStack,
-  Text,
   IconButton,
   Button,
   Menu,
@@ -19,14 +18,13 @@ import {
 } from '@chakra-ui/react'
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
 
-interface Props {
+interface INavLink {
+    route: string,
   children: React.ReactNode
 }
 
-const Links = ['Dashboard', 'Projects', 'Team']
 
-const NavLink = (props: Props) => {
-  const { children } = props
+const NavLink: React.FC<INavLink> = ({children, route}) => {
 
   return (
     <Box
@@ -38,13 +36,18 @@ const NavLink = (props: Props) => {
         textDecoration: 'none',
         bg: useColorModeValue('gray.200', 'gray.700'),
       }}
-      href={'#'}>
+      href={route}>
       {children}
     </Box>
   )
 }
 
-export default function Simple() {
+interface IRouter {
+    links: {route: string, label: string}[]
+    
+}
+
+const Router: React.FC<IRouter> = ({links}) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
@@ -61,8 +64,8 @@ export default function Simple() {
           <HStack spacing={8} alignItems={'center'}>
             <Box>Logo</Box>
             <HStack as={'nav'} spacing={4} display={{ base: 'none', md: 'flex' }}>
-              {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
+              {links.map((link) => (
+                <NavLink key={link.route} route={link.route}>{link.label}</NavLink>
               ))}
             </HStack>
           </HStack>
@@ -94,8 +97,8 @@ export default function Simple() {
         {isOpen ? (
           <Box pb={4} display={{ md: 'none' }}>
             <Stack as={'nav'} spacing={4}>
-              {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
+              {links.map((link) => (
+                <NavLink key={link.route} route={link.route}>{link.label}</NavLink>
               ))}
             </Stack>
           </Box>
@@ -106,3 +109,5 @@ export default function Simple() {
     </>
   )
 }
+
+export default Router;
