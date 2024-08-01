@@ -1,7 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/KimjManansala/muay/backend/pkg/db"
 	"github.com/KimjManansala/muay/backend/pkg/handlers"
@@ -17,6 +19,13 @@ func main() {
 
 	// Serve frontend static files
 	router.Use(static.Serve("/", static.LocalFile("../frontend/build", true)))
+	router.NoRoute(func(c *gin.Context) {
+		if !strings.HasPrefix(c.Request.RequestURI, "/api") {
+			fmt.Println("No route")
+			c.File("../frontend/build/index.html")
+		}
+		//default 404 page not found
+	})
 
 	// Setup route group for the API
 	api := router.Group("/api")
