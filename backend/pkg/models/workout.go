@@ -7,5 +7,5 @@ type Workout struct {
 	Sport   string    `json:"sport"` // TODO SHOULD MAKE ENUM
 	Date    time.Time `json:"date"`
 	CoachId int       `json:"coachId"`
-	Coach   Coach     `json:"coach" gorm:"foreignKey:coachId"`
+	Coach   Coach     `json:"coach" gorm:"foreignKey:CoachId"`
 }

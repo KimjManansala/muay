@@ -3,11 +3,15 @@ package main
 import (
 	"net/http"
 
+	"github.com/KimjManansala/muay/backend/pkg/db"
+	"github.com/KimjManansala/muay/backend/pkg/handlers"
 	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
+	DB := db.Init()
+	h := handlers.New(DB)
 	// Set the router as the default one shipped with Gin
 	router := gin.Default()
 
@@ -22,6 +26,8 @@ func main() {
 				"message": "pong",
 			})
 		})
+		api.POST("/addUser", h.AddUser)
+		api.GET("/addUser", h.AddUser)
 	}
 
 	// Start and run the server
