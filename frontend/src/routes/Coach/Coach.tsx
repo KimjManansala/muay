@@ -1,6 +1,5 @@
 import React from 'react';
-import Navbar from '../../components/Navbar';
-import { COACH_ATHLETES } from '../../router/routeNames';
+import NavBarWrapper from './CoachPortalNav';
 
 interface ICoachContainer {
     // Define your interface properties here
@@ -11,14 +10,9 @@ const CoachContainer: React.FC<ICoachContainer> = () => {
 
     return (
         <div>
-            <Navbar links={[
-                {
-                    route: COACH_ATHLETES,
-                    label: 'Athletes'
-                },
-            ]} />
+            Portal Landing page
         </div>
     );
 };
 
-export default CoachContainer;
+export default NavBarWrapper(CoachContainer);

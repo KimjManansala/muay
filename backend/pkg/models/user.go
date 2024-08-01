@@ -1,7 +1,7 @@
 package models
 
-type Book struct {
-	ID        uint   `json:"id" gorm:"primary_key"`
+type User struct {
+	Id        int    `json:"id" gorm:"primaryKey"`
 	FirstName string `json:"firstName"`
 	LastName  string `json:"lastName"`
 }
